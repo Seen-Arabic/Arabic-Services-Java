@@ -34,8 +34,8 @@ public class ArabicServices {
      * to
      * resulting string: "الخيل والليل والبيداء تعرفني"
      *
-     * @param text The input string that contains tashkeel
-     * @return The resulting string (text without tashkeel)
+     * @param text The input string that contains tashkeel {@link String}
+     * @return The resulting string (text without tashkeel) {@link String}
      */
     public String removeTashkeel(String text) {
         Objects.requireNonNull(text, TEXT_NULL_MESSAGE);
@@ -52,8 +52,8 @@ public class ArabicServices {
      * to
      * resulting string: "جميل"
      *
-     * @param text The input string that contains tatweel
-     * @return The resulting string (text without tatweel)
+     * @param text The input string that contains tatweel {@link String}
+     * @return The resulting string (text without tatweel) {@link String}
      */
     public String removeTatweel(String text) {
         Objects.requireNonNull(text, TEXT_NULL_MESSAGE);
@@ -61,15 +61,15 @@ public class ArabicServices {
     }
 
     /**
-     * Remove all dots & tashkeel from text.
+     * Remove all dots and tashkeel from text.
      *
      * For example
      * text: "الخَيْلُ وَاللّيْلُ وَالبَيْداءُ تَعرِفُني"
      * to
      * resulting string: "الحىل واللىل والٮىدا ٮعرڡٮى"
      *
-     * @param text The input string that contains tashkeel and dots
-     * @return The resulting string (text without tashkeel or dots)
+     * @param text The input string that contains tashkeel and dots {@link String}
+     * @return The resulting string (text without tashkeel or dots) {@link String}
      */
     public String textToOldArabic(String text) {
         Objects.requireNonNull(text, TEXT_NULL_MESSAGE);
