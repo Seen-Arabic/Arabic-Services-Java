@@ -77,12 +77,9 @@ public class ArabicServices {
     }
 
     private String handleNoonIssue(String text) {
-        boolean isLastLetterNoon = text.lastIndexOf(NOON) == text.length() - 1;
-        if (isLastLetterNoon) {
-            text = text.substring(0, text.length() - 1) + lettersData.getLettersDict().get(NOON);
-        }
-        text = text.replace(NOON + " ", lettersData.getLettersDict().get(NOON) + " ");
-        text = text.replace(NOON, lettersData.getLettersDict().get("ب"));
-        return text;
+        String arabicLetters = String.join("", lettersData.getLettersDict().keySet()) + "ـ";
+        String regex = NOON + "(" + "?=[^" + arabicLetters + "]" + ")|" + NOON + "\\z";
+        text = text.replaceAll(regex, lettersData.getLettersDict().get(NOON));
+        return text.replace(NOON, lettersData.getLettersDict().get("ب"));
     }
 }
