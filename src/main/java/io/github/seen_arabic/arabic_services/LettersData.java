@@ -4,7 +4,7 @@ import java.util.Map;
 
 import com.google.gson.annotations.SerializedName;
 
-public class LettersData {
+class LettersData {
 
     @SerializedName("LETTERS")
     private String[] letters;
@@ -20,7 +20,7 @@ public class LettersData {
      * @param lettersDict
      * @param tashkeel
      */
-    public LettersData(String[] letters, Map<String, String> lettersDict, String[] tashkeel) {
+    LettersData(String[] letters, Map<String, String> lettersDict, String[] tashkeel) {
         this.letters = letters;
         this.lettersDict = lettersDict;
         this.tashkeel = tashkeel;
@@ -29,42 +29,42 @@ public class LettersData {
     /**
      * @return the letters
      */
-    public String[] getLetters() {
+    String[] getLetters() {
         return letters;
     }
 
     /**
      * @param letters the letters to set
      */
-    public void setLetters(String[] letters) {
+    void setLetters(String[] letters) {
         this.letters = letters;
     }
 
     /**
      * @return the lettersDict
      */
-    public Map<String, String> getLettersDict() {
+    Map<String, String> getLettersDict() {
         return lettersDict;
     }
 
     /**
      * @param lettersDict the lettersDict to set
      */
-    public void setLettersDict(Map<String, String> lettersDict) {
+    void setLettersDict(Map<String, String> lettersDict) {
         this.lettersDict = lettersDict;
     }
 
     /**
      * @return the tashkeel
      */
-    public String[] getTashkeel() {
+    String[] getTashkeel() {
         return tashkeel;
     }
 
     /**
      * @param tashkeel the tashkeel to set
      */
-    public void setTashkeel(String[] tashkeel) {
+    void setTashkeel(String[] tashkeel) {
         this.tashkeel = tashkeel;
     }
 
