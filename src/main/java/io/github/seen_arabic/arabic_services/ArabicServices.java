@@ -68,12 +68,12 @@ public class ArabicServices {
      * @return The resulting string (text without tashkeel or dots)
      */
     public String textToOldArabic(String text) {
-        String textWithoutTashkeel = removeTashkeel(text);
-        String oldArabicText = handleNoonIssue(textWithoutTashkeel);
+        text = removeTashkeel(text);
+        text = handleNoonIssue(text);
         for (String letter : lettersData.getLettersDict().keySet()) {
-            oldArabicText = oldArabicText.replace(letter, lettersData.getLettersDict().get(letter));
+            text = text.replace(letter, lettersData.getLettersDict().get(letter));
         }
-        return oldArabicText;
+        return text;
     }
 
     private String handleNoonIssue(String text) {
