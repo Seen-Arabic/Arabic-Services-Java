@@ -43,13 +43,13 @@ public class ArabicServicesTest {
 
     @Test
     public void testTextToOldArabic() {
-        itShouldHandleNoun();
-        itShouldHandleNounWithTatweel();
+        itShouldHandleNoon();
+        itShouldHandleNoonWithTatweel();
         itShouldRemoveAllDotsAndTashkeelFromPoetryText();
         itShouldRemoveAllDotsAndTashkeelFromQuranText();
     }
 
-    public void itShouldHandleNoun() {
+    public void itShouldHandleNoon() {
         ArabicServices arabicServices = new ArabicServices();
         String input = "ننن";
         String actual = arabicServices.textToOldArabic(input);
@@ -57,7 +57,7 @@ public class ArabicServicesTest {
         assertEquals(expected, actual);
     }
 
-    public void itShouldHandleNounWithTatweel() {
+    public void itShouldHandleNoonWithTatweel() {
         ArabicServices arabicServices = new ArabicServices();
         String input = "نــنــن";
         String actual = arabicServices.textToOldArabic(input);

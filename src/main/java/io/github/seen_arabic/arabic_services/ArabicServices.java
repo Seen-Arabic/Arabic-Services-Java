@@ -11,7 +11,7 @@ import com.google.gson.JsonSyntaxException;
 import com.google.gson.stream.JsonReader;
 
 public class ArabicServices {
-    private static final String NOUN = "ن";
+    private static final String NOON = "ن";
 
     private LettersData lettersData;
 
@@ -69,20 +69,20 @@ public class ArabicServices {
      */
     public String textToOldArabic(String text) {
         String textWithoutTashkeel = removeTashkeel(text);
-        String oldArabicText = handleNounIssue(textWithoutTashkeel);
+        String oldArabicText = handleNoonIssue(textWithoutTashkeel);
         for (String letter : lettersData.getLettersDict().keySet()) {
             oldArabicText = oldArabicText.replace(letter, lettersData.getLettersDict().get(letter));
         }
         return oldArabicText;
     }
 
-    private String handleNounIssue(String text) {
-        boolean isLastLetterNoun = text.lastIndexOf(NOUN) == text.length() - 1;
-        if (isLastLetterNoun) {
-            text = text.substring(0, text.length() - 1) + lettersData.getLettersDict().get(NOUN);
+    private String handleNoonIssue(String text) {
+        boolean isLastLetterNoon = text.lastIndexOf(NOON) == text.length() - 1;
+        if (isLastLetterNoon) {
+            text = text.substring(0, text.length() - 1) + lettersData.getLettersDict().get(NOON);
         }
-        text = text.replace(NOUN + " ", lettersData.getLettersDict().get(NOUN) + " ");
-        text = text.replace(NOUN, lettersData.getLettersDict().get("ب"));
+        text = text.replace(NOON + " ", lettersData.getLettersDict().get(NOON) + " ");
+        text = text.replace(NOON, lettersData.getLettersDict().get("ب"));
         return text;
     }
 }
