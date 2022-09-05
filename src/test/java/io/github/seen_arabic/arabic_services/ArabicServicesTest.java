@@ -47,6 +47,7 @@ public class ArabicServicesTest {
         itShouldHandleNoonWithTatweel();
         itShouldRemoveAllDotsAndTashkeelFromPoetryText();
         itShouldRemoveAllDotsAndTashkeelFromQuranText();
+        itShouldRemoveAllDotsAndTashkeelFromArabicTextWithOtherText();
     }
 
     public void itShouldHandleNoon() {
@@ -78,6 +79,14 @@ public class ArabicServicesTest {
         String input = "وَقَالُواْ ٱلۡحَمۡدُ لِلَّهِ ٱلَّذِيٓ أَذۡهَبَ عَنَّا ٱلۡحَزَنَۖ إِنَّ رَبَّنَا لَغَفُورٞ شَكُورٌ";
         String actual = arabicServices.textToOldArabic(input);
         String expected = "وٯالوا الحمد لله الدى ادهٮ عٮا الحرں اں رٮٮا لعڡور سکور";
+        assertEquals(expected, actual);
+    }
+
+    private void itShouldRemoveAllDotsAndTashkeelFromArabicTextWithOtherText() {
+        ArabicServices arabicServices = new ArabicServices();
+        String input = "أنـــن5 نون. ننa";
+        String actual = arabicServices.textToOldArabic(input);
+        String expected = "اٮـــں5 ٮوں. ٮںa";
         assertEquals(expected, actual);
     }
 }
