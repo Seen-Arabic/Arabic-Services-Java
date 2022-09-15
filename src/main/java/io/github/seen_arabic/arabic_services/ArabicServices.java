@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class ArabicServices {
 
-    public ArabicServices() {
+    private ArabicServices() {
     }
 
     /**
@@ -18,7 +18,7 @@ public class ArabicServices {
      * @param text The input string that contains tashkeel {@link String}
      * @return The resulting string (text without tashkeel) {@link String}
      */
-    public String removeTashkeel(String text) {
+    public static String removeTashkeel(String text) {
         Objects.requireNonNull(text, Data.TEXT_NULL_MESSAGE);
         String allTashkeel = String.join(",", Data.TASHKEEL);
         return text.replaceAll("[" + allTashkeel + "]", "")
@@ -36,7 +36,7 @@ public class ArabicServices {
      * @param text The input string that contains tatweel {@link String}
      * @return The resulting string (text without tatweel) {@link String}
      */
-    public String removeTatweel(String text) {
+    public static String removeTatweel(String text) {
         Objects.requireNonNull(text, Data.TEXT_NULL_MESSAGE);
         return text.replace("ـ", "");
     }
@@ -52,7 +52,7 @@ public class ArabicServices {
      * @param text The input string that contains tashkeel and dots {@link String}
      * @return The resulting string (text without tashkeel or dots) {@link String}
      */
-    public String textToOldArabic(String text) {
+    public static String textToOldArabic(String text) {
         Objects.requireNonNull(text, Data.TEXT_NULL_MESSAGE);
         text = removeTashkeel(text);
         text = handleNoonIssue(text);
@@ -62,7 +62,7 @@ public class ArabicServices {
         return text;
     }
 
-    private String handleNoonIssue(String text) {
+    private static String handleNoonIssue(String text) {
         String arabicLetters = String.join("", Data.LETTERS_DICT.keySet()) + "ـ";
         String regex = Data.NOON + "(" + "?=[^" + arabicLetters + "]" + ")|" + Data.NOON + "\\z";
         text = text.replaceAll(regex, Data.LETTERS_DICT.get(Data.NOON));
