@@ -1,29 +1,10 @@
 package io.github.seen_arabic.arabic_services;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Reader;
-
 import java.util.Objects;
-import com.google.gson.Gson;
-import com.google.gson.JsonIOException;
-import com.google.gson.JsonSyntaxException;
-import com.google.gson.stream.JsonReader;
 
 public class ArabicServices {
-    private static final String NOON = "ن";
-    private static final String TEXT_NULL_MESSAGE = "text must be not null";
-
-    private LettersData lettersData;
 
     public ArabicServices() {
-        try (Reader reader = new InputStreamReader(new FileInputStream("src/main/res/data.json"), "utf-8")) {
-            Gson gson = new Gson();
-            lettersData = gson.fromJson(new JsonReader(reader), LettersData.class);
-        } catch (JsonIOException | JsonSyntaxException | IOException e) {
-            e.printStackTrace();
-        }
     }
 
     /**
@@ -38,8 +19,8 @@ public class ArabicServices {
      * @return The resulting string (text without tashkeel) {@link String}
      */
     public String removeTashkeel(String text) {
-        Objects.requireNonNull(text, TEXT_NULL_MESSAGE);
-        String allTashkeel = String.join(",", lettersData.getTashkeel());
+        Objects.requireNonNull(text, Data.TEXT_NULL_MESSAGE);
+        String allTashkeel = String.join(",", Data.TASHKEEL);
         return text.replaceAll("[" + allTashkeel + "]", "")
                 .replace("ٱ", "ا");
     }
@@ -56,7 +37,7 @@ public class ArabicServices {
      * @return The resulting string (text without tatweel) {@link String}
      */
     public String removeTatweel(String text) {
-        Objects.requireNonNull(text, TEXT_NULL_MESSAGE);
+        Objects.requireNonNull(text, Data.TEXT_NULL_MESSAGE);
         return text.replace("ـ", "");
     }
 
@@ -72,19 +53,19 @@ public class ArabicServices {
      * @return The resulting string (text without tashkeel or dots) {@link String}
      */
     public String textToOldArabic(String text) {
-        Objects.requireNonNull(text, TEXT_NULL_MESSAGE);
+        Objects.requireNonNull(text, Data.TEXT_NULL_MESSAGE);
         text = removeTashkeel(text);
         text = handleNoonIssue(text);
-        for (String letter : lettersData.getLettersDict().keySet()) {
-            text = text.replace(letter, lettersData.getLettersDict().get(letter));
+        for (String letter : Data.LETTERS_DICT.keySet()) {
+            text = text.replace(letter, Data.LETTERS_DICT.get(letter));
         }
         return text;
     }
 
     private String handleNoonIssue(String text) {
-        String arabicLetters = String.join("", lettersData.getLettersDict().keySet()) + "ـ";
-        String regex = NOON + "(" + "?=[^" + arabicLetters + "]" + ")|" + NOON + "\\z";
-        text = text.replaceAll(regex, lettersData.getLettersDict().get(NOON));
-        return text.replace(NOON, lettersData.getLettersDict().get("ب"));
+        String arabicLetters = String.join("", Data.LETTERS_DICT.keySet()) + "ـ";
+        String regex = Data.NOON + "(" + "?=[^" + arabicLetters + "]" + ")|" + Data.NOON + "\\z";
+        text = text.replaceAll(regex, Data.LETTERS_DICT.get(Data.NOON));
+        return text.replace(Data.NOON, Data.LETTERS_DICT.get("ب"));
     }
 }
