@@ -74,7 +74,7 @@ public class ArabicServices {
      * For example
      * text: "هذه الجملة مشفرة"
      * to
-     * resulting string: "الحىل واللىل والٮىدا ٮعرڡٮى"
+     * resulting string: "ۂذۀ اڵجمـڵة مـښـڨـڕة"
      *
      * @param text The input string {@link String}
      * @return The resulting string {@link String}
