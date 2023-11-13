@@ -1,6 +1,8 @@
 package io.github.seen_arabic.arabic_services;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 
@@ -81,4 +83,13 @@ public class ArabicServicesTest {
         String expected = "اٮـــں5 ٮوں. ٮںa";
         assertEquals(expected, actual);
     }
+
+    @Test
+    public void testTashfeer() {
+        String inputWord = "هذه الجملة مشفرة";
+        String result = ArabicServices.tashfeer(inputWord);
+        assertNotNull(result);
+        assertNotEquals(result, inputWord);
+    }
+
 }

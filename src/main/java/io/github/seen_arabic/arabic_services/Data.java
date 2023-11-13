@@ -1,13 +1,20 @@
 package io.github.seen_arabic.arabic_services;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 class Data {
     static final String NOON = "ن";
+    static final List<Character> ALEF = Arrays.asList('أ', 'إ', 'آ');
+    static final List<Character> YAA = Arrays.asList('ى', 'ئ');
+    static final List<Character> WAW = Arrays.asList('ؤ');
+
     static final String TEXT_NULL_MESSAGE = "text must be not null";
 
     static final Map<String, String> LETTERS_DICT;
+    static final Map<Character, String[]> LETTERS_TASHFEER_REPLACEMENT_DICT;
 
     static final String[] TASHKEEL = {
             "\u0600",
@@ -72,6 +79,44 @@ class Data {
             "\u06EC",
             "\u06ED" };
 
+    static final List<Character> STANDARD_LETTERS = Arrays.asList(
+            'ا',
+            'أ',
+            'آ',
+            'إ',
+            'ب',
+            'ت',
+            'ث',
+            'ح',
+            'ج',
+            'خ',
+            'د',
+            'ذ',
+            'ر',
+            'ز',
+            'س',
+            'ش',
+            'ص',
+            'ض',
+            'ط',
+            'ظ',
+            'ع',
+            'غ',
+            'ف',
+            'ق',
+            'ك',
+            'ل',
+            'م',
+            'ن',
+            'ه',
+            'و',
+            'ؤ',
+            'ي',
+            'ى',
+            'ئ');
+
+    static List<Character> ALONE_LETTERS = Arrays.asList('د', 'ذ', 'ر', 'ز', 'و', 'ا', 'أ', 'إ', 'ء', 'ؤ', 'آ');
+
     static {
         LETTERS_DICT = new HashMap<>();
         LETTERS_DICT.put("ا", "ا");
@@ -116,6 +161,38 @@ class Data {
         LETTERS_DICT.put("ى", "ى");
         LETTERS_DICT.put("ي", "ى");
         LETTERS_DICT.put("ئ", "ى");
+
+        LETTERS_TASHFEER_REPLACEMENT_DICT = new HashMap<>();
+
+        LETTERS_TASHFEER_REPLACEMENT_DICT.put('ا', new String[] { "|", "1", "!", "ן", "ן", "ו", "ⴶ" });
+        LETTERS_TASHFEER_REPLACEMENT_DICT.put('ب', new String[] { "ٮ", "ٻ", "پ", "ڀ", "ٹ", "ޞ", "ސ", "ݐ", "ݒ", "ݕ" });
+        LETTERS_TASHFEER_REPLACEMENT_DICT.put('ت', new String[] { "ٮ", "ٹ", "ٺ", "ټ", "ٽ", "ٿ", "ސ", "ڌ", "ݓ" });
+        LETTERS_TASHFEER_REPLACEMENT_DICT.put('ث', new String[] { "ٮ", "ٹ", "ٽ", "ٿ", "ޝ", "ސ" });
+        LETTERS_TASHFEER_REPLACEMENT_DICT.put('ح', new String[] { "ح", "7" });
+        LETTERS_TASHFEER_REPLACEMENT_DICT.put('ج', new String[] { "ڃ", "ڄ", "چ", "ڇ", "ݘ" });
+        LETTERS_TASHFEER_REPLACEMENT_DICT.put('خ', new String[] { "ح", "ځ", "ݗ" });
+        LETTERS_TASHFEER_REPLACEMENT_DICT.put('د', new String[] { "ڈ", "ډ", "ڊ", "ڍ", "ݙ", "ݚ", "ב", "כ" });
+        LETTERS_TASHFEER_REPLACEMENT_DICT.put('ذ', new String[] { "ڈ", "ڏ", "ۮ", "נ" });
+        LETTERS_TASHFEER_REPLACEMENT_DICT.put('ر', new String[] { "ړ", "ڕ", "ږ", "ݛ" });
+        LETTERS_TASHFEER_REPLACEMENT_DICT.put('ز', new String[] { "ڑ", "ڙ", "ر", "ژ", "ږ", "ۯ", "ݫ", "ݬ" });
+        LETTERS_TASHFEER_REPLACEMENT_DICT.put('س', new String[] { "ނ", "ښ", "ݜ", "ݭ" });
+        LETTERS_TASHFEER_REPLACEMENT_DICT.put('ش', new String[] { "ښ", "ݜ", "ݭ", "שׂ" });
+        LETTERS_TASHFEER_REPLACEMENT_DICT.put('ص', new String[] { "صـު" });
+        LETTERS_TASHFEER_REPLACEMENT_DICT.put('ض', new String[] { "ص", "ض" });
+        LETTERS_TASHFEER_REPLACEMENT_DICT.put('ط', new String[] { "ط" });
+        LETTERS_TASHFEER_REPLACEMENT_DICT.put('ظ', new String[] { "ط", "ظ" });
+        LETTERS_TASHFEER_REPLACEMENT_DICT.put('ع', new String[] { "ݟ", "ݝ" });
+        LETTERS_TASHFEER_REPLACEMENT_DICT.put('غ', new String[] { "ڠ", "ݝ", "ݞ", "ݟ", "ع" });
+        LETTERS_TASHFEER_REPLACEMENT_DICT.put('ف', new String[] { "ڡ", "ڤ", "ڦ", "ڨ", "ݠ", "ݡ", "ڡْ" });
+        LETTERS_TASHFEER_REPLACEMENT_DICT.put('ق', new String[] { "ٯ", "ڨ" });
+        LETTERS_TASHFEER_REPLACEMENT_DICT.put('ك', new String[] { "ڬ", "ڭ", "ک", "ڪ", "ګ", "گ", "ڱ", "ڳ", "ݤ" });
+        LETTERS_TASHFEER_REPLACEMENT_DICT.put('ل', new String[] { "ڵ", "ݪ" });
+        LETTERS_TASHFEER_REPLACEMENT_DICT.put('م', new String[] { "ݥ", "ݦ", "ޘ", "ތ", "ס", "ם" });
+        LETTERS_TASHFEER_REPLACEMENT_DICT.put('ن', new String[] { "ں", "ڻ", "ڼ", "ڽ", "ݔ", "ݖ", "ݧ", "ݨ", "ݩ" });
+        LETTERS_TASHFEER_REPLACEMENT_DICT.put('ه', new String[] { "ۀ", "ہ", "ۂ", "ۃ", "ۿ" });
+        LETTERS_TASHFEER_REPLACEMENT_DICT.put('و', new String[] { "ۅ", "ۆ", "ۇ", "ۈ", "ۏ", "ۉ", "ۋ" });
+        LETTERS_TASHFEER_REPLACEMENT_DICT.put('ي', new String[] { "ۍ", "ێ", "ې", "ے", "ی۪" });
+
     }
 
     private Data() {
