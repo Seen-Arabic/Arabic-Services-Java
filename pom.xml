@@ -139,6 +139,7 @@
               <keyname>0x36E557D6</keyname>
               <passphraseServerId>0x36E557D6</passphraseServerId>
               <gpgArguments>
+                <arg>--no-tty</arg>
                 <arg>--pinentry-mode</arg>
                 <arg>loopback</arg>
               </gpgArguments>
