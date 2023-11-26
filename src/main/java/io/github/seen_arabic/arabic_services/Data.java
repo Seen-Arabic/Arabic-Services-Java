@@ -15,6 +15,7 @@ class Data {
 
     static final Map<String, String> LETTERS_DICT;
     static final Map<Character, String[]> LETTERS_TASHFEER_REPLACEMENT_DICT;
+    static final Map<String, String> PRONOUNCED_LETTERS;
 
     static final String[] TASHKEEL = {
             "\u0600",
@@ -193,6 +194,43 @@ class Data {
         LETTERS_TASHFEER_REPLACEMENT_DICT.put('و', new String[] { "ۅ", "ۆ", "ۇ", "ۈ", "ۏ", "ۉ", "ۋ" });
         LETTERS_TASHFEER_REPLACEMENT_DICT.put('ي', new String[] { "ۍ", "ێ", "ې", "ے", "ی۪" });
 
+        PRONOUNCED_LETTERS = new HashMap<>();
+        PRONOUNCED_LETTERS.put("ا", "ألف");
+        PRONOUNCED_LETTERS.put("إ", "ألف_مكسورة");
+        PRONOUNCED_LETTERS.put("أ", "ألف");
+        PRONOUNCED_LETTERS.put("آ", "ألف_مد");
+        PRONOUNCED_LETTERS.put("ء", "همزة"); // Not in STANDARD_LETTERS[]
+        PRONOUNCED_LETTERS.put("ب", "باء");
+        PRONOUNCED_LETTERS.put("ت", "تاء");
+        PRONOUNCED_LETTERS.put("ث", "ثاء");
+        PRONOUNCED_LETTERS.put("ج", "جيم");
+        PRONOUNCED_LETTERS.put("ح", "حاء");
+        PRONOUNCED_LETTERS.put("خ", "خاء");
+        PRONOUNCED_LETTERS.put("د", "دال");
+        PRONOUNCED_LETTERS.put("ذ", "ذال");
+        PRONOUNCED_LETTERS.put("ر", "راء");
+        PRONOUNCED_LETTERS.put("ز", "زاي");
+        PRONOUNCED_LETTERS.put("س", "سين");
+        PRONOUNCED_LETTERS.put("ش", "شين");
+        PRONOUNCED_LETTERS.put("ص", "صاد");
+        PRONOUNCED_LETTERS.put("ض", "ضاد");
+        PRONOUNCED_LETTERS.put("ط", "طاء");
+        PRONOUNCED_LETTERS.put("ظ", "ظاء");
+        PRONOUNCED_LETTERS.put("ع", "عين");
+        PRONOUNCED_LETTERS.put("غ", "غين");
+        PRONOUNCED_LETTERS.put("ف", "فاء");
+        PRONOUNCED_LETTERS.put("ق", "قاف");
+        PRONOUNCED_LETTERS.put("ك", "كاف");
+        PRONOUNCED_LETTERS.put("ل", "لام");
+        PRONOUNCED_LETTERS.put("م", "ميم");
+        PRONOUNCED_LETTERS.put("ن", "نون");
+        PRONOUNCED_LETTERS.put("ه", "هاء");
+        PRONOUNCED_LETTERS.put("و", "واو");
+        PRONOUNCED_LETTERS.put("ؤ", "همزة_متوسطة_مضمومة");
+        PRONOUNCED_LETTERS.put("ى", "ألف_لينة");
+        PRONOUNCED_LETTERS.put("ي", "ياء");
+        PRONOUNCED_LETTERS.put("ئ", "همزة_متوسطة_مكسورة");
+        PRONOUNCED_LETTERS.put("ة", "تاء_مربوطة"); // Not in STANDARD_LETTERS[]
     }
 
     private Data() {
