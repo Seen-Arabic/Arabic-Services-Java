@@ -88,6 +88,31 @@ public class ArabicServices {
         return newSentence.toString().trim();
     }
 
+    public static String wordToLetters(String word) {
+        StringBuilder newWord = new StringBuilder();
+
+        // Loop through each character in the input word
+        for (int i = 0; i < word.length(); i++) {
+            String letter = word.charAt(i) + "";
+
+            // Check if the current letter has a pronunciation in PRONOUNCED_LETTERS
+            if (Data.PRONOUNCED_LETTERS.containsKey(letter)) {
+                newWord.append(Data.PRONOUNCED_LETTERS.get(letter));
+
+                // Add a space after the pronounced letter unless it's the last letter in the
+                // word
+                if (i != word.length() - 1) {
+                    newWord.append(' ');
+                }
+            } else {
+                // If the letter is not in PRONOUNCED_LETTERS, keep it unchanged
+                newWord.append(letter);
+            }
+        }
+
+        return newWord.toString().trim();
+    }
+
     private static String handleNoonIssue(String text) {
         String arabicLetters = String.join("", Data.LETTERS_DICT.keySet()) + "ـ";
         String regex = Data.NOON + "(" + "?=[^" + arabicLetters + "]" + ")|" + Data.NOON + "\\z";

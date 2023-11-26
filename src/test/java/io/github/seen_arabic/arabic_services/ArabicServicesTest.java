@@ -92,4 +92,36 @@ public class ArabicServicesTest {
         assertNotEquals(result, inputWord);
     }
 
+    @Test
+    public void testWordToLetters() {
+        itShouldReturnAStringWithPronouncedArabicLetters();
+        itShouldHandleEmptyInput();
+        itShouldHandleInputWithNoPronouncedArabicLetters();
+        itShouldHandleInputWithSpaces();
+    }
+
+    private void itShouldReturnAStringWithPronouncedArabicLetters() {
+        String input = "هذه جملة عربية";
+        String result = ArabicServices.wordToLetters(input);
+        assertNotNull(result);
+        assertNotEquals(input, result);
+    }
+
+    private void itShouldHandleEmptyInput() {
+        String input = "";
+        String result = ArabicServices.wordToLetters(input);
+        assertEquals("", result);
+    }
+
+    private void itShouldHandleInputWithNoPronouncedArabicLetters() {
+        String input = "12345 not in Arabic letters";
+        String result = ArabicServices.wordToLetters(input);
+        assertEquals(input, result);
+    }
+
+    private void itShouldHandleInputWithSpaces() {
+        String input = "هذه جملة اخرى";
+        String result = ArabicServices.wordToLetters(input);
+        assertEquals("هاء ذال هاء  جيم ميم لام تاء_مربوطة  ألف خاء راء ألف_لينة", result);
+    }
 }
