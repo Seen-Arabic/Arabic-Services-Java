@@ -88,6 +88,17 @@ public class ArabicServices {
         return newSentence.toString().trim();
     }
 
+    /**
+     * Word to letters.
+     *
+     * For example
+     * text: "هذه جملة"
+     * to
+     * resulting string: "هاء ذال هاء جيم ميم لام تاء_مربوطة"
+     *
+     * @param text The input string {@link String}
+     * @return The resulting string {@link String}
+     */
     public static String wordToLetters(String word) {
         StringBuilder newWord = new StringBuilder();
 
