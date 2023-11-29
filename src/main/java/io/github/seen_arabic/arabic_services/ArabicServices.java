@@ -124,6 +124,23 @@ public class ArabicServices {
         return newWord.toString().trim();
     }
 
+    public static String removeArabicAffixes(String word) {
+        if (Data.ARABIC_PREFIXES.contains(word.substring(0, 2))) {
+            // For: ALEF & LAM
+            word = word.substring(2);
+        } else if (Data.ARABIC_PREFIXES.contains(word.substring(0, 1))) {
+            word = word.substring(1);
+        }
+
+        if (Data.ARABIC_SUFFIXES.contains(word.substring(word.length() - 2))) {
+            word = word.substring(0, word.length() - 2);
+        } else if (Data.ARABIC_SUFFIXES.contains(word.substring(word.length() - 1))) {
+            word = word.substring(0, word.length() - 1);
+        }
+
+        return word.trim();
+    }
+
     private static String handleNoonIssue(String text) {
         String arabicLetters = String.join("", Data.LETTERS_DICT.keySet()) + "ـ";
         String regex = Data.NOON + "(" + "?=[^" + arabicLetters + "]" + ")|" + Data.NOON + "\\z";
