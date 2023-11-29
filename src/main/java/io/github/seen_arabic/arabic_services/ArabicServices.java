@@ -124,6 +124,20 @@ public class ArabicServices {
         return newWord.toString().trim();
     }
 
+    /**
+     * RemoveArabicAffixes
+     * 
+     * Removes predefined affixes (prefixes and suffixes) from an Arabic word if it
+     * starts or ends with those affixes.
+     * This function is designed specifically for processing Arabic text, where
+     * certain affixes might need to be removed
+     * for linguistic, stylistic, or morphological reasons.
+     *
+     * @param word - The Arabic word from which the affixes are to be
+     *             removed. {@link String}
+     * @returns The word after removing any matching affixes. Returns the
+     *          original word if no affix matches are found. {@link String}
+     */
     public static String removeArabicAffixes(String word) {
         if (Data.ARABIC_PREFIXES.contains(word.substring(0, 2))) {
             // For: ALEF & LAM
