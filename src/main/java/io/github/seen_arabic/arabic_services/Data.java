@@ -11,6 +11,20 @@ class Data {
     static final List<Character> YAA = Arrays.asList('ى', 'ئ');
     static final List<Character> WAW = Arrays.asList('ؤ');
 
+    /**
+     * List of common Arabic prefixes. These prefixes are used in the
+     * removeArabicPrefix method
+     * to identify and remove them from the beginning of Arabic words.
+     */
+    public static final List<String> ARABIC_PREFIXES = Arrays.asList("أ", "ا", "إ", "ال", "ي", "ت", "ن", "ب");
+
+    /**
+     * List of common Arabic suffixes. These suffixes might be used in other
+     * functions
+     * to identify and manipulate them at the end of Arabic words.
+     */
+    public static final List<String> ARABIC_SUFFIXES = Arrays.asList("ة", "ه", "ي", "ى", "ية", "ين", "ون", "هم");
+
     static final String TEXT_NULL_MESSAGE = "text must be not null";
 
     static final Map<String, String> LETTERS_DICT;

@@ -88,6 +88,17 @@ public class ArabicServices {
         return newSentence.toString().trim();
     }
 
+    /**
+     * Word to letters.
+     *
+     * For example
+     * text: "هذه جملة"
+     * to
+     * resulting string: "هاء ذال هاء جيم ميم لام تاء_مربوطة"
+     *
+     * @param word The input string {@link String}
+     * @return The resulting string {@link String}
+     */
     public static String wordToLetters(String word) {
         StringBuilder newWord = new StringBuilder();
 
@@ -111,6 +122,37 @@ public class ArabicServices {
         }
 
         return newWord.toString().trim();
+    }
+
+    /**
+     * RemoveArabicAffixes
+     * 
+     * Removes predefined affixes (prefixes and suffixes) from an Arabic word if it
+     * starts or ends with those affixes.
+     * This function is designed specifically for processing Arabic text, where
+     * certain affixes might need to be removed
+     * for linguistic, stylistic, or morphological reasons.
+     *
+     * @param word - The Arabic word from which the affixes are to be
+     *             removed. {@link String}
+     * @return The word after removing any matching affixes. Returns the
+     *         original word if no affix matches are found. {@link String}
+     */
+    public static String removeArabicAffixes(String word) {
+        if (Data.ARABIC_PREFIXES.contains(word.substring(0, 2))) {
+            // For: ALEF & LAM
+            word = word.substring(2);
+        } else if (Data.ARABIC_PREFIXES.contains(word.substring(0, 1))) {
+            word = word.substring(1);
+        }
+
+        if (Data.ARABIC_SUFFIXES.contains(word.substring(word.length() - 2))) {
+            word = word.substring(0, word.length() - 2);
+        } else if (Data.ARABIC_SUFFIXES.contains(word.substring(word.length() - 1))) {
+            word = word.substring(0, word.length() - 1);
+        }
+
+        return word.trim();
     }
 
     private static String handleNoonIssue(String text) {

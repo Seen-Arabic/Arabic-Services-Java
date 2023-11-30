@@ -124,4 +124,121 @@ public class ArabicServicesTest {
         String result = ArabicServices.wordToLetters(input);
         assertEquals("هاء ذال هاء  جيم ميم لام تاء_مربوطة  ألف خاء راء ألف_لينة", result);
     }
+
+    @Test
+    public void testRemoveArabicAffixes() {
+        itShouldRemoveAlfPrefixFromAWord();
+        itShouldRemoveAlefPrefixAndTaaSuffixFromAWord();
+        itShouldRemoveAlefHamzaBelowPrefixFromAWord();
+        itShouldRemoveAlPrefixFromAWord();
+        itShouldRemoveYaPrefixFromAWord();
+        itShouldRemoveTaPrefixFromAWord();
+        itShouldRemoveNunPrefixFromAWord();
+        itShouldRemoveBaPrefixFromAWord();
+        itShouldRemoveTaSuffixFromAWord();
+        itShouldRemoveHaSuffixFromAWord();
+        itShouldRemoveYaSuffixFromAWord();
+        itShouldRemoveAlefMaksuraSuffixFromAWord();
+        itShouldRemoveYaAlefSuffixFromAWord();
+        itShouldRemoveYaNunSuffixFromAWord();
+        itShouldRemoveWawNunSuffixFromAWord();
+        itShouldRemoveHumSuffixFromAWord();
+    }
+
+    private void itShouldRemoveAlfPrefixFromAWord() {
+        String word = "أمل";
+        String result = ArabicServices.removeArabicAffixes(word);
+        assertEquals("مل", result);
+    }
+
+    private void itShouldRemoveAlefPrefixAndTaaSuffixFromAWord() {
+        String word = "امرأة";
+        String result = ArabicServices.removeArabicAffixes(word);
+        assertEquals("مرأ", result);
+    }
+
+    private void itShouldRemoveAlefHamzaBelowPrefixFromAWord() {
+        String word = "إنسان";
+        String result = ArabicServices.removeArabicAffixes(word);
+        assertEquals("نسان", result);
+    }
+
+    private void itShouldRemoveAlPrefixFromAWord() {
+        String word = "الكتاب";
+        String result = ArabicServices.removeArabicAffixes(word);
+        assertEquals("كتاب", result);
+    }
+
+    private void itShouldRemoveYaPrefixFromAWord() {
+        String word = "يوم";
+        String result = ArabicServices.removeArabicAffixes(word);
+        assertEquals("وم", result);
+    }
+
+    private void itShouldRemoveTaPrefixFromAWord() {
+        String word = "تفاح";
+        String result = ArabicServices.removeArabicAffixes(word);
+        assertEquals("فاح", result);
+    }
+
+    private void itShouldRemoveNunPrefixFromAWord() {
+        String word = "نجم";
+        String result = ArabicServices.removeArabicAffixes(word);
+        assertEquals("جم", result);
+    }
+
+    private void itShouldRemoveBaPrefixFromAWord() {
+        String word = "بيت";
+        String result = ArabicServices.removeArabicAffixes(word);
+        assertEquals("يت", result);
+    }
+
+    private void itShouldRemoveTaSuffixFromAWord() {
+        String word = "كتابة";
+        String result = ArabicServices.removeArabicAffixes(word);
+        assertEquals("كتاب", result);
+    }
+
+    private void itShouldRemoveHaSuffixFromAWord() {
+        String word = "جديه";
+        String result = ArabicServices.removeArabicAffixes(word);
+        assertEquals("جدي", result);
+    }
+
+    private void itShouldRemoveYaSuffixFromAWord() {
+        String word = "ذهبي";
+        String result = ArabicServices.removeArabicAffixes(word);
+        assertEquals("ذهب", result);
+    }
+
+    private void itShouldRemoveAlefMaksuraSuffixFromAWord() {
+        String word = "منزلي";
+        String result = ArabicServices.removeArabicAffixes(word);
+        assertEquals("منزل", result);
+    }
+
+    private void itShouldRemoveYaAlefSuffixFromAWord() {
+        String word = "علمية";
+        String result = ArabicServices.removeArabicAffixes(word);
+        assertEquals("علم", result);
+    }
+
+    private void itShouldRemoveYaNunSuffixFromAWord() {
+        String word = "موظفين";
+        String result = ArabicServices.removeArabicAffixes(word);
+        assertEquals("موظف", result);
+    }
+
+    private void itShouldRemoveWawNunSuffixFromAWord() {
+        String word = "موظفون";
+        String result = ArabicServices.removeArabicAffixes(word);
+        assertEquals("موظف", result);
+    }
+
+    private void itShouldRemoveHumSuffixFromAWord() {
+        String word = "طلابهم";
+        String result = ArabicServices.removeArabicAffixes(word);
+        assertEquals("طلاب", result);
+    }
+
 }
