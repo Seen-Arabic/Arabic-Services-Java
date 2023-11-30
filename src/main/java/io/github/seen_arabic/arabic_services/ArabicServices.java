@@ -96,7 +96,7 @@ public class ArabicServices {
      * to
      * resulting string: "هاء ذال هاء جيم ميم لام تاء_مربوطة"
      *
-     * @param text The input string {@link String}
+     * @param word The input string {@link String}
      * @return The resulting string {@link String}
      */
     public static String wordToLetters(String word) {
@@ -135,8 +135,8 @@ public class ArabicServices {
      *
      * @param word - The Arabic word from which the affixes are to be
      *             removed. {@link String}
-     * @returns The word after removing any matching affixes. Returns the
-     *          original word if no affix matches are found. {@link String}
+     * @return The word after removing any matching affixes. Returns the
+     *         original word if no affix matches are found. {@link String}
      */
     public static String removeArabicAffixes(String word) {
         if (Data.ARABIC_PREFIXES.contains(word.substring(0, 2))) {
