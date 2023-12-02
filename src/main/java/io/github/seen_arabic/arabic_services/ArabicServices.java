@@ -163,9 +163,9 @@ public class ArabicServices {
      * considered "banned" words.
      * Banned words are determined based on a predefined similarity ratio.
      *
-     * @param text The input text to be encrypted.
+     * @param text The input text to be encrypted {@link String}.
      * @return The encrypted text with tashfeer applied and an encryption level
-     *         is 2 to banned words.
+     *         is 2 to banned words {@link String}.
      */
     public static String tashfeerBannedWords(String text) {
         return tashfeerBannedWords(text, 2);
@@ -176,9 +176,10 @@ public class ArabicServices {
      * considered "banned" words.
      * Banned words are determined based on a predefined similarity ratio.
      *
-     * @param text            The input text to be encrypted.
+     * @param text            The input text to be encrypted {@link String}.
      * @param levelOfTashfeer The encryption level (default is 2).
-     * @return The encrypted text with tashfeer applied to banned words.
+     * @return The encrypted text with tashfeer applied to banned words
+     *         {@link String}.
      */
     public static String tashfeerBannedWords(String text, int levelOfTashfeer) {
         Objects.requireNonNull(text, Data.TEXT_NULL_MESSAGE);
