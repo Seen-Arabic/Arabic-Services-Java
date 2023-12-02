@@ -139,6 +139,9 @@ public class ArabicServices {
      *         original word if no affix matches are found. {@link String}
      */
     public static String removeArabicAffixes(String word) {
+        if (word.isEmpty()) {
+            return word;
+        }
         if (Data.ARABIC_PREFIXES.contains(word.substring(0, 2))) {
             // For: ALEF & LAM
             word = word.substring(2);
