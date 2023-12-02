@@ -1,8 +1,10 @@
 package io.github.seen_arabic.arabic_services;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
@@ -241,4 +243,28 @@ public class ArabicServicesTest {
         assertEquals("طلاب", result);
     }
 
+    @Test
+    public void itShouldPerformTashfeerEncryptionOnBannedWordsOnly() {
+        String sentence = "جيش العدو يقتل الأطفال";
+        String result = ArabicServices.tashfeerBannedWords(sentence);
+        assertNotEquals(sentence, result);
+        assertTrue(result.contains("الأطفال"));
+        assertFalse(result.contains("جيش"));
+        assertFalse(result.contains("العدو"));
+        assertFalse(result.contains("يقتل"));
+    }
+
+    @Test
+    public void itShouldNotPerformTashfeerEncryptionOnNonBannedWords() {
+        String sentence = "هذه جملة غير مشفرة";
+        String result = ArabicServices.tashfeerBannedWords(sentence);
+        assertEquals(sentence, result);
+    }
+
+    @Test
+    public void tashfeerBannedWordsShouldHandleEmptyInput() {
+        String sentence = "";
+        String result = ArabicServices.tashfeerBannedWords(sentence);
+        assertEquals("", result);
+    }
 }
