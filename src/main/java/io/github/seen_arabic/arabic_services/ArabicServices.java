@@ -139,6 +139,9 @@ public class ArabicServices {
      *         original word if no affix matches are found. {@link String}
      */
     public static String removeArabicAffixes(String word) {
+        if (word.isEmpty()) {
+            return word;
+        }
         if (Data.ARABIC_PREFIXES.contains(word.substring(0, 2))) {
             // For: ALEF & LAM
             word = word.substring(2);
@@ -153,6 +156,42 @@ public class ArabicServices {
         }
 
         return word.trim();
+    }
+
+    /**
+     * Performs tashfeer encryption on a given text, but only for words that are
+     * considered "banned" words.
+     * Banned words are determined based on a predefined similarity ratio.
+     *
+     * @param text The input text to be encrypted {@link String}.
+     * @return The encrypted text with tashfeer applied and an encryption level
+     *         is 2 to banned words {@link String}.
+     */
+    public static String tashfeerBannedWords(String text) {
+        return tashfeerBannedWords(text, 2);
+    }
+
+    /**
+     * Performs tashfeer encryption on a given text, but only for words that are
+     * considered "banned" words.
+     * Banned words are determined based on a predefined similarity ratio.
+     *
+     * @param text            The input text to be encrypted {@link String}.
+     * @param levelOfTashfeer The encryption level (default is 2).
+     * @return The encrypted text with tashfeer applied to banned words
+     *         {@link String}.
+     */
+    public static String tashfeerBannedWords(String text, int levelOfTashfeer) {
+        Objects.requireNonNull(text, Data.TEXT_NULL_MESSAGE);
+        StringBuilder newText = new StringBuilder();
+        for (String word : text.split(" ")) {
+            if (checkIfBannedWord(word)) {
+                newText.append(tashfeerHandler(word, levelOfTashfeer)).append(" ");
+            } else {
+                newText.append(word).append(" ");
+            }
+        }
+        return newText.toString().trim();
     }
 
     private static String handleNoonIssue(String text) {
@@ -258,5 +297,69 @@ public class ArabicServices {
         // Get the randomly selected replacement character
         char replacementCharacter = replacementCharList[randomIndex].charAt(0);
         return replacementCharacter;
+    }
+
+    private static double bannedSimilarityRatio(String string) {
+        double maximumSimilarity = -1;
+        for (String bannedWord : Data.BANNED_WORDS) {
+            double calculatedSimilarity = similarityScore(string, bannedWord);
+            if (calculatedSimilarity > maximumSimilarity) {
+                maximumSimilarity = calculatedSimilarity;
+            }
+        }
+        return maximumSimilarity * 100;
+    }
+
+    private static boolean checkIfBannedWord(String string) {
+        double stdRatio = 70;
+        return bannedSimilarityRatio(removeArabicAffixes(string)) >= stdRatio;
+    }
+
+    private static double similarityScore(String s1, String s2) {
+        String longer = s1;
+        String shorter = s2;
+
+        // swap them if s1 is bigger than s2
+        if (s1.length() < s2.length()) {
+            longer = s2;
+            shorter = s1;
+        }
+
+        int longerLength = longer.length();
+
+        // if both are empty strings return 1 (100% similarity)
+        if (longerLength == 0) {
+            return 1.0;
+        }
+
+        // calculate the similarity score
+        return (double) (longerLength - editDistance(longer, shorter)) / (double) longerLength;
+    }
+
+    private static int editDistance(String s1, String s2) {
+        s1 = s1.toLowerCase();
+        s2 = s2.toLowerCase();
+
+        int[] costs = new int[s2.length() + 1];
+
+        for (int i = 0; i <= s1.length(); i++) {
+            int lastValue = i;
+            for (int j = 0; j <= s2.length(); j++) {
+                if (i == 0) {
+                    costs[j] = j;
+                } else if (j > 0) {
+                    int newValue = costs[j - 1];
+                    if (s1.charAt(i - 1) != s2.charAt(j - 1)) {
+                        newValue = Math.min(Math.min(newValue, lastValue), costs[j]) + 1;
+                    }
+                    costs[j - 1] = lastValue;
+                    lastValue = newValue;
+                }
+            }
+            if (i > 0) {
+                costs[s2.length()] = lastValue;
+            }
+        }
+        return costs[s2.length()];
     }
 }
