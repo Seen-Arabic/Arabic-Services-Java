@@ -244,7 +244,7 @@ public class ArabicServicesTest {
     }
 
     @Test
-    public void itShouldPerformTashfeerEncryptionOnBannedWordsOnly() {
+    public void tashfeerBannedWordsShouldPerformTashfeerEncryptionOnBannedWordsOnly() {
         String sentence = "جيش العدو يقتل الأطفال";
         String result = ArabicServices.tashfeerBannedWords(sentence);
         assertNotEquals(sentence, result);
@@ -255,7 +255,7 @@ public class ArabicServicesTest {
     }
 
     @Test
-    public void itShouldNotPerformTashfeerEncryptionOnNonBannedWords() {
+    public void tashfeerBannedWordsShouldNotPerformTashfeerEncryptionOnNonBannedWords() {
         String sentence = "هذه جملة غير مشفرة";
         String result = ArabicServices.tashfeerBannedWords(sentence);
         assertEquals(sentence, result);
