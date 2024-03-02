@@ -194,6 +194,41 @@ public class ArabicServices {
         return newText.toString().trim();
     }
 
+    /**
+     * Converts the provided text to old Arabic while handling banned words with
+     * tashfeer.
+     * Uses a default tashfeer level of 2.
+     *
+     * @param text The input text to be processed.
+     * @return The processed text with words converted to old Arabic and tashfeer
+     *         applied to banned words.
+     */
+    public static String toOldArabicAndTashfeerBannedWords(String text) {
+        return toOldArabicAndTashfeerBannedWords(text, 2);
+    }
+
+    /**
+     * Converts words in a sentence to old Arabic while handling banned words with
+     * tashfeer.
+     *
+     * @param text            The input text to be processed.
+     * @param levelOfTashfeer The level of tashfeer to apply to banned words.
+     * @return The processed text with words converted to old Arabic and
+     *         tashfeer applied to banned words.
+     */
+    public static String toOldArabicAndTashfeerBannedWords(String text, int levelOfTashfeer) {
+        StringBuilder result = new StringBuilder();
+        String[] words = text.trim().split("\\s+");
+        for (String word : words) {
+            if (checkIfBannedWord(word)) {
+                result.append(tashfeerHandler(word, levelOfTashfeer)).append(" ");
+            } else {
+                result.append(textToOldArabic(word)).append(" ");
+            }
+        }
+        return result.toString().trim();
+    }
+
     private static String handleNoonIssue(String text) {
         String arabicLetters = String.join("", Data.LETTERS_DICT.keySet()) + "ـ";
         String regex = Data.NOON + "(" + "?=[^" + arabicLetters + "]" + ")|" + Data.NOON + "\\z";

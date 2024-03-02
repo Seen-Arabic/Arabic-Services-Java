@@ -267,4 +267,15 @@ public class ArabicServicesTest {
         String result = ArabicServices.tashfeerBannedWords(sentence);
         assertEquals("", result);
     }
+
+    @Test
+    public void testToOldArabicAndTashfeerBannedWords() {
+        String sentence = "جيش العدو يقتل الأطفال";
+        String result = ArabicServices.toOldArabicAndTashfeerBannedWords(sentence);
+        assertNotEquals(sentence, result);
+        assertTrue(result.contains("الاطڡال"));
+        assertFalse(result.contains("جيش"));
+        assertFalse(result.contains("العدو"));
+        assertFalse(result.contains("يقتل"));
+    }
 }
