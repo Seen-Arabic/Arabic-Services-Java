@@ -20,11 +20,11 @@
 <a href="https://github.com/Seen-Arabic/Arabic-Services-Java/network/members">
 <img src="https://img.shields.io/github/forks/Seen-Arabic/Arabic-Services-Java"/>
 </a>
-<a href="https://github.com/Seen-Arabic/Arabic-Services-Java/blob/master/LICENSE">
+<a href="https://github.com/Seen-Arabic/Arabic-Services-Java/blob/main/LICENSE">
 <img src="https://img.shields.io/github/license/Seen-Arabic/Arabic-Services-Java"/>
 </a>
-<a href="https://github.com/Seen-Arabic/Arabic-Services-Java/actions/workflows/test.yml">
-<img src="https://github.com/Seen-Arabic/Arabic-Services-Java/actions/workflows/test.yml/badge.svg" alt="workflows">
+<a href="https://github.com/Seen-Arabic/Arabic-Services-Java/actions/workflows/build_and_test.yml">
+<img src="https://github.com/Seen-Arabic/Arabic-Services-Java/actions/workflows/build_and_test.yml/badge.svg" alt="workflows">
 </a>
 </div>
 
