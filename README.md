@@ -32,12 +32,12 @@ A versatile library offering utility functions for processing and transforming A
 
 - **Tashkeel Removal**: Easily remove Tashkeel from Arabic text.
 - **Tatweel Removal**: Remove Tatweel character from Arabic phrases.
-- **Convert To Old Arabic**: Transform Arabic text into old script.
-- **Tashfeer**: Replaces Arabic text with visually similar characters for encoding purposes.
+- **Convert To Old Arabic**: Transform Arabic text into old script with customizable options (`OldArabicOptions`).
+- **Tashfeer**: Obfuscate Arabic text with visually similar characters, with configurable encryption levels.
 - **Tashfeer Banned Words**: Replaces Banned Arabic text with visually similar characters for encoding purposes.
-- **Remove Arabic Affixes**: Removes predefined affixes from an Arabic word.
-- **Word To Letters**: Convert Arabic word to its pronounced letters.
-- ... and more!
+- **Remove Arabic Affixes**: Removes predefined affixes from Arabic sentences while retaining words with fewer than three Arabic letters.
+- **Word To Letters**: Convert Arabic words to their pronounced letter names.
+- **String Utilities**: Similarity score (Levenshtein distance) and helper operations.
 
 <h3 align="center"><a href="https://github.com/Seen-Arabic/Arabic-Services-Java/wiki/Features-Documentation">➡️ Check out the usage and detailed documentation on each feature ⬅️</a></h3>
 <p align="center"><a href="https://seen-arabic.github.io/Arabic-Services/">🌐 Try Arabic Services live in your browser</a> · <a href="https://seen-arabic.github.io/blog/">📝 Seen Blog</a></p>
@@ -52,7 +52,7 @@ Add the following dependency to your `pom.xml`:
 <dependency>
     <groupId>io.github.seen-arabic</groupId>
     <artifactId>arabic-services</artifactId>
-    <version>1.0.1</version>
+    <version>1.1.0</version>
 </dependency>
 ```
 
@@ -61,7 +61,7 @@ Add the following dependency to your `pom.xml`:
 Add the following dependency to your `build.gradle`:
 
 ```groovy
-implementation 'io.github.seen-arabic:arabic-services:1.0.1'
+implementation 'io.github.seen-arabic:arabic-services:1.1.0'
 ```
 
 ## 💡 Contributing
@@ -81,5 +81,5 @@ This project is licensed under the GPL-3.0 License. See the [LICENSE](./LICENSE)
 
 ## 💬 Contact
 
--   📩 Email: [SeenDevelopment@gmail.com](mailto:SeenDevelopment@gmail.com)
+- 📩 Email: [SeenDevelopment@gmail.com](mailto:SeenDevelopment@gmail.com)
 - 🌎 [Website](https://seen-arabic.github.io/)

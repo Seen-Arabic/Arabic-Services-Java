@@ -7,10 +7,10 @@
 
   <groupId>io.github.seen-arabic</groupId>
   <artifactId>arabic-services</artifactId>
-  <version>1.0.1</version>
+  <version>1.1.0</version>
 
   <packaging>jar</packaging>
-  <name>${project.groupId}:${project.artifactId}&lt;</name>
+  <name>${project.groupId}:${project.artifactId}</name>
   <description> A versatile library offering utility functions for processing and transforming Arabic text. </description>
   <url>https://github.com/Seen-Arabic/Arabic-Services-Java</url>
   <licenses>
@@ -21,6 +21,12 @@
   </licenses>
   <developers>
     <developer>
+      <name>Seen Arabic</name>
+      <email>SeenDevelopment@gmail.com</email>
+      <organization>Seen Arabic</organization>
+      <organizationUrl>https://github.com/Seen-Arabic</organizationUrl>
+    </developer>
+    <developer>
       <name>Mohamed Amgd</name>
       <email>MohamedAmgd97@gmail.com</email>
       <organization>Seen Arabic</organization>
@@ -29,20 +35,9 @@
   </developers>
   <scm>
     <connection>scm:git:git://github.com/Seen-Arabic/Arabic-Services-Java.git</connection>
-    <developerConnection>scm:git:ssh://github.com:Seen-Arabic/Arabic-Services-Java.git</developerConnection>
+    <developerConnection>scm:git:ssh://git@github.com:Seen-Arabic/Arabic-Services-Java.git</developerConnection>
     <url>https://github.com/Seen-Arabic/Arabic-Services-Java/tree/main</url>
   </scm>
-  <distributionManagement>
-    <snapshotRepository>
-      <id>ossrh</id>
-      <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
-    </snapshotRepository>
-    <repository>
-      <id>ossrh</id>
-      <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-    </repository>
-  </distributionManagement>
-
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -54,7 +49,7 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>4.11</version>
+      <version>4.13.2</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -63,44 +58,40 @@
     <plugins>
       <plugin>
         <artifactId>maven-clean-plugin</artifactId>
-        <version>3.1.0</version>
+        <version>3.2.0</version>
       </plugin>
       <plugin>
         <artifactId>maven-resources-plugin</artifactId>
-        <version>3.0.2</version>
+        <version>3.3.1</version>
       </plugin>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.8.0</version>
+        <version>3.11.0</version>
       </plugin>
       <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
-        <version>2.22.1</version>
+        <version>3.1.2</version>
       </plugin>
       <plugin>
         <artifactId>maven-jar-plugin</artifactId>
-        <version>3.0.2</version>
+        <version>3.3.0</version>
       </plugin>
       <plugin>
         <artifactId>maven-install-plugin</artifactId>
-        <version>2.5.2</version>
+        <version>3.1.1</version>
       </plugin>
       <plugin>
         <artifactId>maven-deploy-plugin</artifactId>
-        <version>2.8.2</version>
-      </plugin>
-      <plugin>
-        <artifactId>maven-site-plugin</artifactId>
-        <version>3.7.1</version>
-      </plugin>
-      <plugin>
-        <artifactId>maven-project-info-reports-plugin</artifactId>
-        <version>3.0.0</version>
+        <version>3.1.1</version>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
-        <version>3.0.0</version>
+        <version>3.6.3</version>
+        <configuration>
+          <encoding>UTF-8</encoding>
+          <doclint>none</doclint>
+        </configuration>
         <executions>
           <execution>
             <id>attach-javadocs</id>
@@ -113,49 +104,58 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-source-plugin</artifactId>
-        <version>3.0.1</version>
+        <version>3.3.1</version>
         <executions>
           <execution>
             <id>attach-sources</id>
             <goals>
-              <goal>jar</goal>
+              <goal>jar-no-fork</goal>
             </goals>
           </execution>
         </executions>
       </plugin>
-
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-gpg-plugin</artifactId>
-        <version>1.6</version>
-        <executions>
-          <execution>
-            <id>sign-artifacts</id>
-            <phase>verify</phase>
-            <goals>
-              <goal>sign</goal>
-            </goals>
-            <configuration>
-              <gpgArguments>
-                <arg>--pinentry-mode</arg>
-                <arg>loopback</arg>
-              </gpgArguments>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-
-      <plugin>
-        <groupId>org.sonatype.plugins</groupId>
-        <artifactId>nexus-staging-maven-plugin</artifactId>
-        <version>1.6.7</version>
+        <groupId>org.sonatype.central</groupId>
+        <artifactId>central-publishing-maven-plugin</artifactId>
+        <version>0.12.0</version>
         <extensions>true</extensions>
         <configuration>
-          <serverId>ossrh</serverId>
-          <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
-          <autoReleaseAfterClose>true</autoReleaseAfterClose>
+          <publishingServerId>central</publishingServerId>
+          <autoPublish>true</autoPublish>
+          <waitUntil>published</waitUntil>
+          <waitTimeoutSeconds>600</waitTimeoutSeconds>
         </configuration>
       </plugin>
     </plugins>
   </build>
+
+  <profiles>
+    <profile>
+      <id>release</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <version>3.2.7</version>
+            <executions>
+              <execution>
+                <id>sign-artifacts</id>
+                <phase>verify</phase>
+                <goals>
+                  <goal>sign</goal>
+                </goals>
+                <configuration>
+                  <gpgArguments>
+                    <arg>--pinentry-mode</arg>
+                    <arg>loopback</arg>
+                  </gpgArguments>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 </project>
