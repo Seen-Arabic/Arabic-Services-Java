@@ -122,6 +122,8 @@
         <configuration>
           <publishingServerId>central</publishingServerId>
           <autoPublish>true</autoPublish>
+          <waitUntil>published</waitUntil>
+          <waitTimeoutSeconds>600</waitTimeoutSeconds>
         </configuration>
       </plugin>
     </plugins>

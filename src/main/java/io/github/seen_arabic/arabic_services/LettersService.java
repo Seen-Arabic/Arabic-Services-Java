@@ -21,9 +21,9 @@ final class LettersService {
                 if (i != codePoints.length - 1) {
                     newWord.append(' ');
                 }
-            } else if (Character.isWhitespace(codePoints[i])) {
+            } else if (Character.isWhitespace(codePoints[i]) || Character.isSpaceChar(codePoints[i])) {
                 newWord.append(' ');
-                while (i + 1 < codePoints.length && Character.isWhitespace(codePoints[i + 1])) {
+                while (i + 1 < codePoints.length && (Character.isWhitespace(codePoints[i + 1]) || Character.isSpaceChar(codePoints[i + 1]))) {
                     i++;
                 }
             } else {

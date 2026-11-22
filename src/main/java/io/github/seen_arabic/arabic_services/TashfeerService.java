@@ -4,8 +4,8 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
-import java.util.Random;
 import java.util.Set;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -100,7 +100,7 @@ final class TashfeerService {
 
         int count = Math.min(numOfIndexesToNeeded, wordLength);
         Set<Integer> randomIndexes = new HashSet<>();
-        Random random = new Random();
+        ThreadLocalRandom random = ThreadLocalRandom.current();
 
         while (randomIndexes.size() < count) {
             randomIndexes.add(random.nextInt(wordLength));
@@ -153,8 +153,7 @@ final class TashfeerService {
         if (replacementList == null || replacementList.isEmpty()) {
             return String.valueOf(character);
         }
-        Random random = new Random();
-        int randomIndex = random.nextInt(replacementList.size());
+        int randomIndex = ThreadLocalRandom.current().nextInt(replacementList.size());
         return replacementList.get(randomIndex);
     }
 

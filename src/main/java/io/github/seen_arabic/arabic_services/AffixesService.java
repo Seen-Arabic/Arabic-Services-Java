@@ -7,7 +7,6 @@ import java.util.regex.Pattern;
 final class AffixesService {
 
     private static final Pattern WORD_PATTERN = Pattern.compile("[\\p{L}\\p{M}\\p{N}]+");
-    private static final Pattern ARABIC_LETTER_PATTERN = Pattern.compile("[\\p{L}&&\\p{IsArabic}]");
 
     private AffixesService() {
     }
@@ -22,13 +21,15 @@ final class AffixesService {
             String word = matcher.group();
             String stripped = removeArabicAffixesFromWord(word);
 
-            Matcher arabicLetterMatcher = ARABIC_LETTER_PATTERN.matcher(stripped);
             int arabicLetterCount = 0;
-            while (arabicLetterMatcher.find()) {
-                arabicLetterCount++;
-                if (arabicLetterCount >= 3) {
-                    break;
+            for (int i = 0; i < stripped.length(); ) {
+                int cp = stripped.codePointAt(i);
+                if (Character.isLetter(cp) && Character.UnicodeScript.of(cp) == Character.UnicodeScript.ARABIC) {
+                    if (++arabicLetterCount >= 3) {
+                        break;
+                    }
                 }
+                i += Character.charCount(cp);
             }
 
             String replacement = (arabicLetterCount >= 3) ? stripped : word;

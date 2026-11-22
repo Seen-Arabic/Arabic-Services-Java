@@ -277,6 +277,8 @@ public class ArabicServicesTest {
         assertEquals("ألف حاء ميم دال", ArabicServices.wordToLetters("أحمد"));
         assertEquals("هاء ذال هاء  جيم ميم لام تاء_مربوطة", ArabicServices.wordToLetters("هذه    جملة"));
         assertEquals("باء  تاء", ArabicServices.wordToLetters("ب    ت"));
+        // Non-breaking space (\u00A0) normalization
+        assertEquals("باء  تاء", ArabicServices.wordToLetters("ب\u00A0\u00A0ت"));
     }
 
     // ==========================================
