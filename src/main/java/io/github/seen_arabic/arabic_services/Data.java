@@ -1,34 +1,38 @@
 package io.github.seen_arabic.arabic_services;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 class Data {
     static final String NOON = "ن";
-    static final List<Character> ALEF = Arrays.asList('أ', 'إ', 'آ');
-    static final List<Character> YAA = Arrays.asList('ى', 'ئ');
-    static final List<Character> WAW = Arrays.asList('ؤ');
+    static final List<Character> ALEF = Collections.unmodifiableList(Arrays.asList('أ', 'إ', 'آ'));
+    static final List<Character> YAA = Collections.unmodifiableList(Arrays.asList('ى', 'ئ'));
+    static final List<Character> WAW = Collections.unmodifiableList(Arrays.asList('ؤ'));
 
     /**
      * List of common Arabic prefixes. These prefixes are used in the
      * removeArabicPrefix method
      * to identify and remove them from the beginning of Arabic words.
      */
-    public static final List<String> ARABIC_PREFIXES = Arrays.asList("أ", "ا", "إ", "ال", "ي", "ت", "ن", "ب");
+    public static final List<String> ARABIC_PREFIXES = Collections
+            .unmodifiableList(Arrays.asList("أ", "ا", "إ", "ال", "ي", "ت", "ن", "ب"));
 
     /**
      * List of common Arabic suffixes. These suffixes might be used in other
      * functions
      * to identify and manipulate them at the end of Arabic words.
      */
-    public static final List<String> ARABIC_SUFFIXES = Arrays.asList("ة", "ه", "ي", "ى", "ية", "ين", "ون", "هم");
+    public static final List<String> ARABIC_SUFFIXES = Collections
+            .unmodifiableList(Arrays.asList("ة", "ه", "ي", "ى", "ية", "ين", "ون", "هم"));
 
     static final String TEXT_NULL_MESSAGE = "text must be not null";
 
     static final Map<String, String> LETTERS_DICT;
-    static final Map<Character, String[]> LETTERS_TASHFEER_REPLACEMENT_DICT;
+    static final Map<Character, List<String>> LETTERS_TASHFEER_REPLACEMENT_DICT;
     static final Map<String, String> PRONOUNCED_LETTERS;
 
     static final String[] TASHKEEL = {
@@ -92,9 +96,12 @@ class Data {
             "\u06EA",
             "\u06EB",
             "\u06EC",
-            "\u06ED" };
+            "\u06ED",
+            "\u08F0",
+            "\u08F1",
+            "\u08F2" };
 
-    static final List<Character> STANDARD_LETTERS = Arrays.asList(
+    static final List<Character> STANDARD_LETTERS = Collections.unmodifiableList(Arrays.asList(
             'ا',
             'أ',
             'آ',
@@ -128,9 +135,11 @@ class Data {
             'ؤ',
             'ي',
             'ى',
-            'ئ');
+            'ئ'));
 
-    static List<Character> ALONE_LETTERS = Arrays.asList('د', 'ذ', 'ر', 'ز', 'و', 'ا', 'أ', 'إ', 'ء', 'ؤ', 'آ');
+    static final List<Character> ALONE_LETTERS = Collections
+            .unmodifiableList(Arrays.asList('د', 'ذ', 'ر', 'ز', 'و', 'ا', 'أ', 'إ', 'ء', 'ؤ', 'آ'));
+
     static final String[] BANNED_WORDS = {
             "فلسطين",
             "عرب",
@@ -186,119 +195,127 @@ class Data {
             "حماس",
             "كر"
     };
+
     static {
-        LETTERS_DICT = new HashMap<>();
-        LETTERS_DICT.put("ا", "ا");
-        LETTERS_DICT.put("أ", "ا");
-        LETTERS_DICT.put("إ", "ا");
-        LETTERS_DICT.put("آ", "ا");
-        LETTERS_DICT.put("ٱ", "ا");
-        LETTERS_DICT.put("ء", "");
-        LETTERS_DICT.put("ب", "ٮ");
-        LETTERS_DICT.put("پ", "ٮ");
-        LETTERS_DICT.put("ت", "ٮ");
-        LETTERS_DICT.put("ث", "ٮ");
-        LETTERS_DICT.put("ج", "ح");
-        LETTERS_DICT.put("چ", "ح");
-        LETTERS_DICT.put("خ", "ح");
-        LETTERS_DICT.put("ح", "ح");
-        LETTERS_DICT.put("د", "د");
-        LETTERS_DICT.put("ذ", "د");
-        LETTERS_DICT.put("ر", "ر");
-        LETTERS_DICT.put("ز", "ر");
-        LETTERS_DICT.put("ژ", "ر");
-        LETTERS_DICT.put("س", "س");
-        LETTERS_DICT.put("ش", "س");
-        LETTERS_DICT.put("ص", "ص");
-        LETTERS_DICT.put("ض", "ص");
-        LETTERS_DICT.put("ط", "ط");
-        LETTERS_DICT.put("ظ", "ط");
-        LETTERS_DICT.put("ع", "ع");
-        LETTERS_DICT.put("غ", "ع");
-        LETTERS_DICT.put("ف", "ڡ");
-        LETTERS_DICT.put("ڤ", "ڡ");
-        LETTERS_DICT.put("ق", "ٯ");
-        LETTERS_DICT.put("ك", "ک");
-        LETTERS_DICT.put("گ", "ک");
-        LETTERS_DICT.put("ل", "ل");
-        LETTERS_DICT.put("م", "م");
-        LETTERS_DICT.put("ن", "ں");
-        LETTERS_DICT.put("ه", "ه");
-        LETTERS_DICT.put("و", "و");
-        LETTERS_DICT.put("ؤ", "و");
-        LETTERS_DICT.put("ة", "ه");
-        LETTERS_DICT.put("ى", "ى");
-        LETTERS_DICT.put("ي", "ى");
-        LETTERS_DICT.put("ئ", "ى");
+        Map<String, String> letters = new HashMap<>();
+        letters.put("ا", "ا");
+        letters.put("أ", "ا");
+        letters.put("إ", "ا");
+        letters.put("آ", "ا");
+        letters.put("ٱ", "ا");
+        letters.put("ء", "");
+        letters.put("ب", "ٮ");
+        letters.put("پ", "ٮ");
+        letters.put("ت", "ٮ");
+        letters.put("ث", "ٮ");
+        letters.put("ج", "ح");
+        letters.put("چ", "ح");
+        letters.put("خ", "ح");
+        letters.put("ح", "ح");
+        letters.put("د", "د");
+        letters.put("ذ", "د");
+        letters.put("ر", "ر");
+        letters.put("ز", "ر");
+        letters.put("ژ", "ر");
+        letters.put("س", "س");
+        letters.put("ش", "س");
+        letters.put("ص", "ص");
+        letters.put("ض", "ص");
+        letters.put("ط", "ط");
+        letters.put("ظ", "ط");
+        letters.put("ع", "ع");
+        letters.put("غ", "ع");
+        letters.put("ف", "ڡ");
+        letters.put("ڤ", "ڡ");
+        letters.put("ق", "ٯ");
+        letters.put("ك", "ک");
+        letters.put("گ", "ک");
+        letters.put("ل", "ل");
+        letters.put("م", "م");
+        letters.put("ن", "ں");
+        letters.put("ه", "ه");
+        letters.put("و", "و");
+        letters.put("ؤ", "و");
+        letters.put("ة", "ه");
+        letters.put("ى", "ى");
+        letters.put("ي", "ى");
+        letters.put("ئ", "ى");
+        LETTERS_DICT = Collections.unmodifiableMap(letters);
 
-        LETTERS_TASHFEER_REPLACEMENT_DICT = new HashMap<>();
+        Map<Character, List<String>> replacements = new HashMap<>();
+        replacements.put('ا', Arrays.asList("|", "1", "!", "ן", "ן", "ו", "ⴶ"));
+        replacements.put('ب', Arrays.asList("ٮ", "ٻ", "پ", "ڀ", "ٹ", "ޞ", "ސ", "ݐ", "ݒ", "ݕ"));
+        replacements.put('ت', Arrays.asList("ٮ", "ٹ", "ٺ", "ټ", "ٽ", "ٿ", "ސ", "ڌ", "ݓ", "ݖ", "ݑ"));
+        replacements.put('ث', Arrays.asList("ٮ", "ٹ", "ٽ", "ٿ", "ޝ", "ސ", "ݖ", "ݑ"));
+        replacements.put('ح', Arrays.asList("ځ", "7", "ݗ", "ڂ"));
+        replacements.put('ج', Arrays.asList("ڃ", "ڄ", "چ", "ڇ", "ݘ"));
+        replacements.put('خ', Arrays.asList("ح", "ځ", "ݗ"));
+        replacements.put('د', Arrays.asList("ڈ", "ډ", "ڊ", "ڍ", "ݙ", "ݚ", "ב", "כ"));
+        replacements.put('ذ', Arrays.asList("ڈ", "ڏ", "ۮ", "נ"));
+        replacements.put('ر', Arrays.asList("ړ", "ڕ", "ږ", "ݛ"));
+        replacements.put('ز', Arrays.asList("ڑ", "ڙ", "ر", "ژ", "ږ", "ۯ", "ݫ", "ݬ"));
+        replacements.put('س', Arrays.asList("ނ", "ښ", "ݜ", "ݭ"));
+        replacements.put('ش', Arrays.asList("ښ", "ݜ", "ݭ", "שׂ"));
+        replacements.put('ص', Arrays.asList("ڝ"));
+        replacements.put('ض', Arrays.asList("ص", "ض"));
+        replacements.put('ط', Arrays.asList("ط"));
+        replacements.put('ظ', Arrays.asList("ط", "ظ"));
+        replacements.put('ع', Arrays.asList("ݟ", "ݝ"));
+        replacements.put('غ', Arrays.asList("ڠ", "ݝ", "ݞ", "ݟ", "ع"));
+        replacements.put('ف', Arrays.asList("ڡ", "ڤ", "ڦ", "ڨ", "ݠ", "ݡ", "ڡْ"));
+        replacements.put('ق', Arrays.asList("ٯ", "ڨ"));
+        replacements.put('ك', Arrays.asList("ڬ", "ڭ", "ک", "ڪ", "ګ", "گ", "ڱ", "ڳ", "ݤ"));
+        replacements.put('ل', Arrays.asList("ڵ", "ݪ"));
+        replacements.put('م', Arrays.asList("ݥ", "ݦ", "ޘ", "ތ", "ס", "ם"));
+        replacements.put('ن', Arrays.asList("ں", "ڻ", "ڼ", "ڽ", "ݔ", "ݖ", "ݧ", "ݨ", "ݩ", "ٽ"));
+        replacements.put('ه', Arrays.asList("ۀ", "ہ", "ۂ", "ۃ", "ۿ"));
+        replacements.put('و', Arrays.asList("ۅ", "ۆ", "ۇ", "ۈ", "ۏ", "ۉ", "ۋ", "ޥ"));
+        replacements.put('ي', Arrays.asList("ۍ", "ێ", "ې", "ے", "ی۪"));
 
-        LETTERS_TASHFEER_REPLACEMENT_DICT.put('ا', new String[] { "|", "1", "!", "ן", "ן", "ו", "ⴶ" });
-        LETTERS_TASHFEER_REPLACEMENT_DICT.put('ب', new String[] { "ٮ", "ٻ", "پ", "ڀ", "ٹ", "ޞ", "ސ", "ݐ", "ݒ", "ݕ" });
-        LETTERS_TASHFEER_REPLACEMENT_DICT.put('ت', new String[] { "ٮ", "ٹ", "ٺ", "ټ", "ٽ", "ٿ", "ސ", "ڌ", "ݓ" });
-        LETTERS_TASHFEER_REPLACEMENT_DICT.put('ث', new String[] { "ٮ", "ٹ", "ٽ", "ٿ", "ޝ", "ސ" });
-        LETTERS_TASHFEER_REPLACEMENT_DICT.put('ح', new String[] { "ح", "7" });
-        LETTERS_TASHFEER_REPLACEMENT_DICT.put('ج', new String[] { "ڃ", "ڄ", "چ", "ڇ", "ݘ" });
-        LETTERS_TASHFEER_REPLACEMENT_DICT.put('خ', new String[] { "ح", "ځ", "ݗ" });
-        LETTERS_TASHFEER_REPLACEMENT_DICT.put('د', new String[] { "ڈ", "ډ", "ڊ", "ڍ", "ݙ", "ݚ", "ב", "כ" });
-        LETTERS_TASHFEER_REPLACEMENT_DICT.put('ذ', new String[] { "ڈ", "ڏ", "ۮ", "נ" });
-        LETTERS_TASHFEER_REPLACEMENT_DICT.put('ر', new String[] { "ړ", "ڕ", "ږ", "ݛ" });
-        LETTERS_TASHFEER_REPLACEMENT_DICT.put('ز', new String[] { "ڑ", "ڙ", "ر", "ژ", "ږ", "ۯ", "ݫ", "ݬ" });
-        LETTERS_TASHFEER_REPLACEMENT_DICT.put('س', new String[] { "ނ", "ښ", "ݜ", "ݭ" });
-        LETTERS_TASHFEER_REPLACEMENT_DICT.put('ش', new String[] { "ښ", "ݜ", "ݭ", "שׂ" });
-        LETTERS_TASHFEER_REPLACEMENT_DICT.put('ص', new String[] { "صـު" });
-        LETTERS_TASHFEER_REPLACEMENT_DICT.put('ض', new String[] { "ص", "ض" });
-        LETTERS_TASHFEER_REPLACEMENT_DICT.put('ط', new String[] { "ط" });
-        LETTERS_TASHFEER_REPLACEMENT_DICT.put('ظ', new String[] { "ط", "ظ" });
-        LETTERS_TASHFEER_REPLACEMENT_DICT.put('ع', new String[] { "ݟ", "ݝ" });
-        LETTERS_TASHFEER_REPLACEMENT_DICT.put('غ', new String[] { "ڠ", "ݝ", "ݞ", "ݟ", "ع" });
-        LETTERS_TASHFEER_REPLACEMENT_DICT.put('ف', new String[] { "ڡ", "ڤ", "ڦ", "ڨ", "ݠ", "ݡ", "ڡْ" });
-        LETTERS_TASHFEER_REPLACEMENT_DICT.put('ق', new String[] { "ٯ", "ڨ" });
-        LETTERS_TASHFEER_REPLACEMENT_DICT.put('ك', new String[] { "ڬ", "ڭ", "ک", "ڪ", "ګ", "گ", "ڱ", "ڳ", "ݤ" });
-        LETTERS_TASHFEER_REPLACEMENT_DICT.put('ل', new String[] { "ڵ", "ݪ" });
-        LETTERS_TASHFEER_REPLACEMENT_DICT.put('م', new String[] { "ݥ", "ݦ", "ޘ", "ތ", "ס", "ם" });
-        LETTERS_TASHFEER_REPLACEMENT_DICT.put('ن', new String[] { "ں", "ڻ", "ڼ", "ڽ", "ݔ", "ݖ", "ݧ", "ݨ", "ݩ" });
-        LETTERS_TASHFEER_REPLACEMENT_DICT.put('ه', new String[] { "ۀ", "ہ", "ۂ", "ۃ", "ۿ" });
-        LETTERS_TASHFEER_REPLACEMENT_DICT.put('و', new String[] { "ۅ", "ۆ", "ۇ", "ۈ", "ۏ", "ۉ", "ۋ" });
-        LETTERS_TASHFEER_REPLACEMENT_DICT.put('ي', new String[] { "ۍ", "ێ", "ې", "ے", "ی۪" });
+        Map<Character, List<String>> unmodReplacements = new HashMap<>();
+        for (Map.Entry<Character, List<String>> entry : replacements.entrySet()) {
+            unmodReplacements.put(entry.getKey(), Collections.unmodifiableList(new ArrayList<>(entry.getValue())));
+        }
+        LETTERS_TASHFEER_REPLACEMENT_DICT = Collections.unmodifiableMap(unmodReplacements);
 
-        PRONOUNCED_LETTERS = new HashMap<>();
-        PRONOUNCED_LETTERS.put("ا", "ألف");
-        PRONOUNCED_LETTERS.put("إ", "ألف_مكسورة");
-        PRONOUNCED_LETTERS.put("أ", "ألف");
-        PRONOUNCED_LETTERS.put("آ", "ألف_مد");
-        PRONOUNCED_LETTERS.put("ء", "همزة"); // Not in STANDARD_LETTERS[]
-        PRONOUNCED_LETTERS.put("ب", "باء");
-        PRONOUNCED_LETTERS.put("ت", "تاء");
-        PRONOUNCED_LETTERS.put("ث", "ثاء");
-        PRONOUNCED_LETTERS.put("ج", "جيم");
-        PRONOUNCED_LETTERS.put("ح", "حاء");
-        PRONOUNCED_LETTERS.put("خ", "خاء");
-        PRONOUNCED_LETTERS.put("د", "دال");
-        PRONOUNCED_LETTERS.put("ذ", "ذال");
-        PRONOUNCED_LETTERS.put("ر", "راء");
-        PRONOUNCED_LETTERS.put("ز", "زاي");
-        PRONOUNCED_LETTERS.put("س", "سين");
-        PRONOUNCED_LETTERS.put("ش", "شين");
-        PRONOUNCED_LETTERS.put("ص", "صاد");
-        PRONOUNCED_LETTERS.put("ض", "ضاد");
-        PRONOUNCED_LETTERS.put("ط", "طاء");
-        PRONOUNCED_LETTERS.put("ظ", "ظاء");
-        PRONOUNCED_LETTERS.put("ع", "عين");
-        PRONOUNCED_LETTERS.put("غ", "غين");
-        PRONOUNCED_LETTERS.put("ف", "فاء");
-        PRONOUNCED_LETTERS.put("ق", "قاف");
-        PRONOUNCED_LETTERS.put("ك", "كاف");
-        PRONOUNCED_LETTERS.put("ل", "لام");
-        PRONOUNCED_LETTERS.put("م", "ميم");
-        PRONOUNCED_LETTERS.put("ن", "نون");
-        PRONOUNCED_LETTERS.put("ه", "هاء");
-        PRONOUNCED_LETTERS.put("و", "واو");
-        PRONOUNCED_LETTERS.put("ؤ", "همزة_متوسطة_مضمومة");
-        PRONOUNCED_LETTERS.put("ى", "ألف_لينة");
-        PRONOUNCED_LETTERS.put("ي", "ياء");
-        PRONOUNCED_LETTERS.put("ئ", "همزة_متوسطة_مكسورة");
-        PRONOUNCED_LETTERS.put("ة", "تاء_مربوطة"); // Not in STANDARD_LETTERS[]
+        Map<String, String> pronounced = new HashMap<>();
+        pronounced.put("ا", "ألف");
+        pronounced.put("إ", "ألف_مكسورة");
+        pronounced.put("أ", "ألف");
+        pronounced.put("آ", "ألف_مد");
+        pronounced.put("ء", "همزة");
+        pronounced.put("ب", "باء");
+        pronounced.put("ت", "تاء");
+        pronounced.put("ث", "ثاء");
+        pronounced.put("ج", "جيم");
+        pronounced.put("ح", "حاء");
+        pronounced.put("خ", "خاء");
+        pronounced.put("د", "دال");
+        pronounced.put("ذ", "ذال");
+        pronounced.put("ر", "راء");
+        pronounced.put("ز", "زاي");
+        pronounced.put("س", "سين");
+        pronounced.put("ش", "شين");
+        pronounced.put("ص", "صاد");
+        pronounced.put("ض", "ضاد");
+        pronounced.put("ط", "طاء");
+        pronounced.put("ظ", "ظاء");
+        pronounced.put("ع", "عين");
+        pronounced.put("غ", "غين");
+        pronounced.put("ف", "فاء");
+        pronounced.put("ق", "قاف");
+        pronounced.put("ك", "كاف");
+        pronounced.put("ل", "لام");
+        pronounced.put("م", "ميم");
+        pronounced.put("ن", "نون");
+        pronounced.put("ه", "هاء");
+        pronounced.put("و", "واو");
+        pronounced.put("ؤ", "همزة_متوسطة_مضمومة");
+        pronounced.put("ى", "ألف_لينة");
+        pronounced.put("ي", "ياء");
+        pronounced.put("ئ", "همزة_متوسطة_مكسورة");
+        pronounced.put("ة", "تاء_مربوطة");
+        PRONOUNCED_LETTERS = Collections.unmodifiableMap(pronounced);
     }
 
     private Data() {
